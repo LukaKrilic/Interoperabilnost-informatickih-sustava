@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/interop
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  graphql:
+    graphiql:
+      enabled: true
+
+server:
+  port: 8080
+
+tags:
+  api:
+    mode: custom
+
+jwt:
+  access-minutes: 15
+  refresh-days: 7

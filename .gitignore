@@ -1,0 +1,7 @@
+target/
+.idea/
+*.iml
+*.log
+generated/
+http-client.private.env.json
+application-local.yml
