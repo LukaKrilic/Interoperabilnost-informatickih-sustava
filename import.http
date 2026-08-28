@@ -1,0 +1,35 @@
+### 1. Valid XML — expect 200, imported=2
+POST http://localhost:8080/api/import/xml
+Content-Type: application/xml
+
+< ./samples/tags-valid.xml
+
+### 2. XML missing name — expect 400
+POST http://localhost:8080/api/import/xml
+Content-Type: application/xml
+
+< ./samples/tags-invalid-missing-name.xml
+
+### 3. XML bad color + empty name — expect 400 with TWO errors
+POST http://localhost:8080/api/import/xml
+Content-Type: application/xml
+
+< ./samples/tags-invalid-bad-color.xml
+
+### 4. Valid JSON — expect 200, imported=2
+POST http://localhost:8080/api/import/json
+Content-Type: application/json
+
+< ./samples/tags-valid.json
+
+### 5. JSON bad color — expect 400, location /tags/0/color
+POST http://localhost:8080/api/import/json
+Content-Type: application/json
+
+< ./samples/tags-invalid-bad-color.json
+
+### 6. JSON typo'd field — expect 400 with TWO errors
+POST http://localhost:8080/api/import/json
+Content-Type: application/json
+
+< ./samples/tags-invalid-extra-field.json

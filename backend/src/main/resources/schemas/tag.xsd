@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://algebra.hr/interop/tags"
+           xmlns:t="http://algebra.hr/interop/tags"
+           elementFormDefault="qualified">
+
+    <xs:element name="tags">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tag" type="t:tagType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="tagType">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="color" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="dark-red"/>
+                        <xs:enumeration value="dark-orange"/>
+                        <xs:enumeration value="light-green"/>
+                        <xs:enumeration value="dark-blue"/>
+                        <xs:enumeration value="light-purple"/>
+                        <xs:enumeration value="none"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="notes" type="xs:string" minOccurs="0"/>
+            <xs:element name="workspaceGid" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="gid" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>

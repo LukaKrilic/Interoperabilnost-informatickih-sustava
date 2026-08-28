@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t:tags xmlns:t="http://algebra.hr/interop/tags">
+    <t:tag>
+        <t:name>urgent</t:name>
+        <t:color>pink</t:color>
+    </t:tag>
+    <t:tag>
+        <t:name></t:name>
+        <t:color>dark-blue</t:color>
+    </t:tag>
+</t:tags>

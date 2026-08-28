@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t:tags xmlns:t="http://algebra.hr/interop/tags">
+    <t:tag gid="1200000000000001">
+        <t:name>urgent</t:name>
+        <t:color>dark-red</t:color>
+        <t:notes>Hitni zadaci</t:notes>
+    </t:tag>
+    <t:tag>
+        <t:name>školski</t:name>
+        <t:color>dark-blue</t:color>
+    </t:tag>
+</t:tags>
