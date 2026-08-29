@@ -25,3 +25,6 @@ tags:
 jwt:
   access-minutes: 15
   refresh-days: 7
+
+app:
+  generated-xml: generated/tags.xml

@@ -25,7 +25,7 @@ public class AsanaClient {
 
     public List<AsanaTag> listTags() {
         AsanaListResponse<AsanaTag> response = rest.get()
-                .uri("/tags")
+                .uri("/tags?opt_fields=name,color,notes,workspace")
                 .retrieve()
                 .body(new ParameterizedTypeReference<AsanaListResponse<AsanaTag>>() {});
         return response == null ? List.of() : response.data();

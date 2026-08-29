@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://algebra.hr/interop/tag-schema.json",
   "title": "Tags import",
   "type": "object",
-  "required": ["tags"],
+  "required": [
+    "tags"
+  ],
   "additionalProperties": false,
   "properties": {
     "tags": {
@@ -11,15 +12,65 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "additionalProperties": false,
         "properties": {
-          "gid": { "type": "string", "maxLength": 30 },
-          "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-          "color": { "enum": ["dark-red", "dark-orange", "light-green",
-            "dark-blue", "light-purple", "none"] },
-          "notes": { "type": "string" },
-          "workspaceGid": { "type": "string", "maxLength": 30 }
+          "gid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "color": {
+            "type": "string",
+            "enum": [
+              "red",
+              "orange",
+              "yellow-orange",
+              "yellow",
+              "yellow-green",
+              "green",
+              "blue-green",
+              "aqua",
+              "blue",
+              "indigo",
+              "purple",
+              "magenta",
+              "hot-pink",
+              "pink",
+              "cool-gray",
+              "none",
+              "dark-pink",
+              "dark-green",
+              "dark-blue",
+              "dark-red",
+              "dark-teal",
+              "dark-brown",
+              "dark-orange",
+              "dark-purple",
+              "dark-warm-gray",
+              "light-pink",
+              "light-green",
+              "light-blue",
+              "light-red",
+              "light-teal",
+              "light-brown",
+              "light-orange",
+              "light-purple",
+              "light-warm-gray"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "workspaceGid": {
+            "type": "string",
+            "maxLength": 30
+          }
         }
       }
     }

@@ -23,17 +23,46 @@
                 </xs:simpleType>
             </xs:element>
             <xs:element name="color" minOccurs="0">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="dark-red"/>
-                        <xs:enumeration value="dark-orange"/>
-                        <xs:enumeration value="light-green"/>
-                        <xs:enumeration value="dark-blue"/>
-                        <xs:enumeration value="light-purple"/>
-                        <xs:enumeration value="none"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+            <xs:enumeration value="red"/>
+            <xs:enumeration value="orange"/>
+            <xs:enumeration value="yellow-orange"/>
+            <xs:enumeration value="yellow"/>
+            <xs:enumeration value="yellow-green"/>
+            <xs:enumeration value="green"/>
+            <xs:enumeration value="blue-green"/>
+            <xs:enumeration value="aqua"/>
+            <xs:enumeration value="blue"/>
+            <xs:enumeration value="indigo"/>
+            <xs:enumeration value="purple"/>
+            <xs:enumeration value="magenta"/>
+            <xs:enumeration value="hot-pink"/>
+            <xs:enumeration value="pink"/>
+            <xs:enumeration value="cool-gray"/>
+            <xs:enumeration value="none"/>
+
+            <xs:enumeration value="dark-pink"/>
+            <xs:enumeration value="dark-green"/>
+            <xs:enumeration value="dark-blue"/>
+            <xs:enumeration value="dark-red"/>
+            <xs:enumeration value="dark-teal"/>
+            <xs:enumeration value="dark-brown"/>
+            <xs:enumeration value="dark-orange"/>
+            <xs:enumeration value="dark-purple"/>
+            <xs:enumeration value="dark-warm-gray"/>
+            <xs:enumeration value="light-pink"/>
+            <xs:enumeration value="light-green"/>
+            <xs:enumeration value="light-blue"/>
+            <xs:enumeration value="light-red"/>
+            <xs:enumeration value="light-teal"/>
+            <xs:enumeration value="light-brown"/>
+            <xs:enumeration value="light-orange"/>
+            <xs:enumeration value="light-purple"/>
+            <xs:enumeration value="light-warm-gray"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
             <xs:element name="notes" type="xs:string" minOccurs="0"/>
             <xs:element name="workspaceGid" type="xs:string" minOccurs="0"/>
         </xs:sequence>

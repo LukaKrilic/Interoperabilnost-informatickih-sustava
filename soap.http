@@ -1,0 +1,47 @@
+### 1. WSDL – dokaz da je servis contract-first
+GET http://localhost:8080/ws/tags.wsdl
+
+### 2. Pretraga oznaka po pojmu
+POST http://localhost:8080/ws
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:s="http://algebra.hr/interop/soap">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <s:SearchTagsRequest>
+            <s:term>ŠKOL</s:term>
+        </s:SearchTagsRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+### 3. Prazan pojam – vraća sve oznake iz datoteke
+POST http://localhost:8080/ws
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:s="http://algebra.hr/interop/soap">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <s:SearchTagsRequest>
+            <s:term></s:term>
+        </s:SearchTagsRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+### 4. Nepostojeći pojam – matchCount = 0, totalInFile > 0
+POST http://localhost:8080/ws
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:s="http://algebra.hr/interop/soap">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <s:SearchTagsRequest>
+            <s:term>qqqzzz</s:term>
+        </s:SearchTagsRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

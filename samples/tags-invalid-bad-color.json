@@ -1,3 +1,7 @@
 { "tags": [
-  { "name": "urgent", "color": "pink" }
-] }
+  {
+    "name": "urgent",
+    "color": "neon-purple"
+  }
+  ]
+}

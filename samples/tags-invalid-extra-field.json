@@ -1,3 +1,7 @@
 { "tags": [
-  { "naziv": "urgent", "color": "dark-red" }
-] }
+  {
+    "naziv": "urgent",
+    "color": "dark-red"
+  }
+  ]
+}

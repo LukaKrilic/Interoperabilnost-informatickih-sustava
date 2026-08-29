@@ -1,4 +1,12 @@
 { "tags": [
-  { "name": "urgent", "color": "dark-red", "notes": "Hitni zadaci" },
-  { "name": "frontend", "color": "light-green" }
-] }
+  {
+    "name": "urgent",
+    "color": "dark-red",
+    "notes": "Hitni zadaci"
+  },
+  {
+    "name": "frontend",
+    "color": "light-green"
+  }
+  ]
+}

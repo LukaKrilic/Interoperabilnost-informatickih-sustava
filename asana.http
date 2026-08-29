@@ -5,3 +5,7 @@ Authorization: Bearer {{pat}}
 GET https://app.asana.com/api/1.0/tags
 Authorization: Bearer {{pat}}
 
+###
+GET https://app.asana.com/api/1.0/tags?opt_fields=name,color,notes,workspace
+Authorization: Bearer {{pat}}
+
