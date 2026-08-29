@@ -5,4 +5,4 @@ target/
 generated/
 http-client.private.env.json
 application-local.yml
-.md
+*.md

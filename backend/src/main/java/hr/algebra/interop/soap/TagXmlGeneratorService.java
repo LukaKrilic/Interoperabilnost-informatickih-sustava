@@ -39,6 +39,10 @@ public class TagXmlGeneratorService {
     public Path generate() {
         List<AsanaTag> tags = asana.listTags();
         write(build(tags));
+        return targetPath();
+    }
+
+    public Path targetPath() {
         return target.toAbsolutePath();
     }
 

@@ -1,0 +1,5 @@
+### 1. Dohvati iz Asane, zapisi generated/tags.xml, pa ga validiraj JAXB-om
+GET http://localhost:8080/api/jaxb/validate
+
+### 2. Validiraj datoteku koja je vec na disku (bez novog poziva Asane)
+GET http://localhost:8080/api/jaxb/validate?regenerate=false
