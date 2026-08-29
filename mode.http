@@ -1,0 +1,18 @@
+### Prijava
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "admin123"}
+
+> {% client.global.set("access", response.body.accessToken); %}
+
+### 1. Koji je izvor trenutno aktivan
+GET http://localhost:8080/api/mode
+Authorization: Bearer {{access}}
+
+### 2. Iste oznake - promatraj id vs gid
+GET http://localhost:8080/api/tags
+Authorization: Bearer {{access}}
+
+# custom -> "id": 2,    "gid": null
+# public -> "id": null, "gid": "1217934954351628"

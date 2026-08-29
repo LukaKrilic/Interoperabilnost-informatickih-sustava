@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package weather;
+
+option java_multiple_files = true;
+option java_package = "hr.algebra.interop.weather.grpc";
+option java_outer_classname = "WeatherProto";
+
+service WeatherService {
+  rpc GetTemperature (TemperatureRequest) returns (TemperatureResponse);
+}
+
+message TemperatureRequest {
+  string city = 1;
+}
+
+message TemperatureResponse {
+  string source = 1;
+  string measured_at = 2;
+  int32 total_cities = 3;
+  int32 match_count = 4;
+  repeated CityTemperature city = 5;
+}
+
+message CityTemperature {
+  string name = 1;
+  optional double temperature_c = 2;
+}

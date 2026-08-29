@@ -1,6 +1,8 @@
 package hr.algebra.interop.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.OffsetDateTime;
 
@@ -24,6 +26,7 @@ public class Tag {
     @Column(name = "workspace_gid")
     private String workspaceGid;
 
+    @Generated(event = EventType.INSERT)
     @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 

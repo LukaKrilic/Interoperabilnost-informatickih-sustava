@@ -1,0 +1,50 @@
+### 1. Prijava kao FULL
+# @name login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "admin123"}
+
+> {% client.global.set("access", response.body.accessToken);
+    client.global.set("refresh", response.body.refreshToken); %}
+
+### 2. Prijava kao READONLY
+# @name loginRo
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "citatelj", "password": "citatelj123"}
+
+> {% client.global.set("accessRo", response.body.accessToken); %}
+
+### 3. Kriva lozinka - ocekivano 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "pogresno"}
+
+### 4. Zasticeni endpoint BEZ tokena - ocekivano 401
+GET http://localhost:8080/api/jaxb/validate
+
+### 5. Isti endpoint s tokenom - ocekivano 200
+GET http://localhost:8080/api/jaxb/validate
+Authorization: Bearer {{access}}
+
+### 6. Import kao READONLY - ocekivano 403
+POST http://localhost:8080/api/import/xml
+Content-Type: application/xml
+Authorization: Bearer {{accessRo}}
+
+< ./samples/tags-valid.xml
+
+### 7. Rotacija - ocekivano 200 i NOVI refresh token
+POST http://localhost:8080/api/auth/refresh
+Content-Type: application/json
+
+{"refreshToken": "{{refresh}}"}
+
+### 8. Isti stari refresh jos jednom - ocekivano 401
+POST http://localhost:8080/api/auth/refresh
+Content-Type: application/json
+
+{"refreshToken": "{{refresh}}"}

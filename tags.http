@@ -1,0 +1,72 @@
+### Prijava kao FULL
+# @name login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "admin123"}
+
+> {% client.global.set("access", response.body.accessToken); %}
+
+### Prijava kao READONLY
+# @name loginRo
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "citatelj", "password": "citatelj123"}
+
+> {% client.global.set("accessRo", response.body.accessToken); %}
+
+### 1. Popis svih oznaka - READONLY smije
+GET http://localhost:8080/api/tags
+Authorization: Bearer {{accessRo}}
+
+### 2. Pretraga po pojmu
+GET http://localhost:8080/api/tags?term=urgent
+Authorization: Bearer {{accessRo}}
+
+### 3. Stvaranje kao READONLY - ocekivano 403
+POST http://localhost:8080/api/tags
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"name": "ne-smijem", "color": "blue"}
+
+### 4. Stvaranje kao FULL - ocekivano 201 + Location
+# @name stvori
+POST http://localhost:8080/api/tags
+Content-Type: application/json
+Authorization: Bearer {{access}}
+
+{"name": "nova-oznaka", "color": "blue", "notes": "iz custom API-ja"}
+
+> {% client.global.set("tagId", response.body.id); %}
+
+### 5. Dohvat jedne
+GET http://localhost:8080/api/tags/{{tagId}}
+Authorization: Bearer {{access}}
+
+### 6. Izmjena - ocekivano 200
+PUT http://localhost:8080/api/tags/{{tagId}}
+Content-Type: application/json
+Authorization: Bearer {{access}}
+
+{"name": "izmijenjena-oznaka", "color": "green", "notes": "nakon PUT-a"}
+
+### 7. Prazno ime - ocekivano 400
+POST http://localhost:8080/api/tags
+Content-Type: application/json
+Authorization: Bearer {{access}}
+
+{"name": "  "}
+
+### 8. Nepostojeci id - ocekivano 404
+GET http://localhost:8080/api/tags/999999
+Authorization: Bearer {{access}}
+
+### 9. Brisanje kao READONLY - ocekivano 403
+DELETE http://localhost:8080/api/tags/{{tagId}}
+Authorization: Bearer {{accessRo}}
+
+### 10. Brisanje kao FULL - ocekivano 204
+DELETE http://localhost:8080/api/tags/{{tagId}}
+Authorization: Bearer {{access}}

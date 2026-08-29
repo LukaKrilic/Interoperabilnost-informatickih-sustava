@@ -1,0 +1,28 @@
+type Query {
+    tags(term: String): [Tag!]!
+    tag(id: ID!): Tag
+}
+
+type Mutation {
+    createTag(input: TagInput!): Tag!
+    updateTag(id: ID!, input: TagInput!): Tag!
+    deleteTag(id: ID!): Boolean!
+}
+
+type Tag {
+    id: ID!
+    gid: String
+    name: String!
+    color: String
+    notes: String
+    workspaceGid: String
+    createdAt: String
+}
+
+input TagInput {
+    gid: String
+    name: String!
+    color: String
+    notes: String
+    workspaceGid: String
+}

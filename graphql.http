@@ -1,0 +1,72 @@
+### Prijava kao FULL
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "admin123"}
+
+> {% client.global.set("access", response.body.accessToken); %}
+
+### Prijava kao READONLY
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "citatelj", "password": "citatelj123"}
+
+> {% client.global.set("accessRo", response.body.accessToken); %}
+
+### 1. Sva polja
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "{ tags { id name color notes createdAt } }"}
+
+### 2. ISTI upit, samo name - klijent bira polja
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "{ tags { name } }"}
+
+### 3. Dva upita u JEDNOM zahtjevu (aliasi)
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "{ svi: tags { name } urgentni: tags(term: \"urgent\") { id name } }"}
+
+### 4. Mutacija kao READONLY - ocekivano FORBIDDEN uz HTTP 200
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "mutation { createTag(input: {name: \"ne-smijem\"}) { id } }"}
+
+### 5. Mutacija kao FULL
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{access}}
+
+{"query": "mutation { createTag(input: {name: \"iz-graphqla\", color: \"green\"}) { id name createdAt } }"}
+
+### 6. Izmjena preko varijabli - promijeni id
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{access}}
+
+{"query": "mutation($id: ID!, $input: TagInput!) { updateTag(id: $id, input: $input) { id name color } }",
+  "variables": {"id": "1", "input": {"name": "izmijenjeno", "color": "red"}}}
+
+### 7. Nepostojeci id - ocekivano NOT_FOUND uz HTTP 200
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "{ tag(id: 999999) { id name } }"}
+
+### 8. Polje kojeg nema u shemi - odbijeno prije izvrsavanja
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer {{accessRo}}
+
+{"query": "{ tags { nepostojece } }"}
