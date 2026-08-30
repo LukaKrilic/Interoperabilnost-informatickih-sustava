@@ -1,4 +1,4 @@
-package hr.algebra.interop.graphqls;
+package hr.algebra.interop.graphql;
 
 import hr.algebra.interop.customapi.TagDto;
 import hr.algebra.interop.service.TagService;

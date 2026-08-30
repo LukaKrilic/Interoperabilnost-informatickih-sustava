@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir('JAXB validacija', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <form th:action="@{/jaxb}" method="post" class="kartica">
+        <p>
+            Backend unmarshalla <code>generated/tags.xml</code> JAXB-om uz <code>tag.xsd</code>
+            postavljen na <code>Unmarshaller</code>. Handler vraca <code>true</code>, pa skuplja
+            <strong>sve</strong> prekrsaje umjesto da stane na prvom.
+        </p>
+
+        <label>
+            <input type="checkbox" name="regeneriraj" value="true">
+            Prije validacije ponovno dohvati oznake iz Asane i prepisi datoteku
+        </label>
+        <p class="pomoc">
+            Bez kvacice validira se datoteka koja je vec na disku &mdash; tako mozete rucno
+            pokvariti <code>generated/tags.xml</code> i vidjeti greske s brojem retka.
+        </p>
+
+        <button type="submit">Validiraj</button>
+    </form>
+
+    <section class="kartica" th:if="${rezultat}">
+        <h2 th:if="${rezultat.valid()}">Datoteka je ispravna</h2>
+        <h2 th:unless="${rezultat.valid()}">Datoteka nije ispravna</h2>
+
+        <table class="podaci">
+            <tr><th>Datoteka</th><td><code th:text="${rezultat.file()}">-</code></td></tr>
+            <tr><th>Unmarshallano oznaka</th><td th:text="${rezultat.tagCount()}">0</td></tr>
+            <tr><th>Broj prekrsaja</th><td th:text="${#lists.size(rezultat.errors())}">0</td></tr>
+        </table>
+
+        <p class="pomoc" th:unless="${rezultat.valid()}">
+            Obratite paznju: objekti su <strong>svejedno izgradeni</strong> usprkos prekrsajima.
+            Da je handler vratio <code>false</code>, vidjeli biste jednu poruku i nula objekata.
+        </p>
+
+        <div th:replace="~{fragments/greske :: tablica(${rezultat.errors()})}"></div>
+    </section>
+
+</main>
+</body>
+</html>

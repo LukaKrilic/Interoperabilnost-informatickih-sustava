@@ -1,4 +1,4 @@
-package hr.algebra.interop.graphqls;
+package hr.algebra.interop.graphql;
 
 import graphql.GraphQLError;
 import graphql.schema.DataFetchingEnvironment;

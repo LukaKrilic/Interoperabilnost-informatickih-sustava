@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: okvir('Oznake', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="poruka" th:if="${poruka}" th:text="${poruka}"></div>
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <p class="izvor" th:if="${nacinRada != null and nacinRada['mode'] != null}">
+        Izvor podataka:
+        <span class="badge" th:classappend="${nacinRada['mode'] == 'custom'} ? 'badge-full' : 'badge-ro'"
+              th:text="${nacinRada['mode']}">custom</span>
+        <span th:text="${nacinRada['source']}">PostgreSQL</span>
+        <span class="pomoc" th:text="|(${nacinRada['implementation']})|">()</span>
+    </p>
+
+    <form th:action="@{/oznake}" method="get" class="traka">
+        <input type="text" name="term" th:value="${term}" placeholder="Pretrazi po nazivu...">
+        <button type="submit">Pretrazi</button>
+        <a th:href="@{/oznake}" class="gumb-veza" th:if="${term != null and !term.isEmpty()}">Ocisti</a>
+        <a th:href="@{/oznake/nova}" class="gumb-veza desno" sec:authorize="hasRole('FULL')">Nova oznaka</a>
+    </form>
+
+    <table class="popis">
+        <thead>
+        <tr>
+            <th>id / gid</th>
+            <th>Naziv</th>
+            <th>Boja</th>
+            <th>Biljeske</th>
+            <th>Nastala</th>
+            <th sec:authorize="hasRole('FULL')">Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="o : ${oznake}">
+            <td><code th:text="${o.identifier()}">-</code></td>
+            <td th:text="${o.name()}">naziv</td>
+            <td th:text="${o.color()}">boja</td>
+            <td th:text="${o.notes()}"></td>
+            <td class="pomoc" th:text="${o.createdAt()}"></td>
+            <td sec:authorize="hasRole('FULL')">
+                <a th:href="@{/oznake/{id}/uredi(id=${o.identifier()})}">Uredi</a>
+                <form th:action="@{/oznake/{id}/obrisi(id=${o.identifier()})}" method="post" class="inline"
+                      onsubmit="return confirm('Obrisati oznaku?');">
+                    <button type="submit" class="opasno">Obrisi</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(oznake)}">
+            <td colspan="6" class="pomoc">Nema oznaka za prikaz.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="pomoc" sec:authorize="!hasRole('FULL')">
+        Prijavljeni ste kao READONLY, pa nema gumba za stvaranje, uredivanje ni brisanje.
+        I da ih posaljete rucno, backend bi vratio 403 &mdash; skrivanje gumba je udobnost, 403 je sigurnost.
+    </p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: okvir('Nadzorna ploca', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="poruka" th:if="${poruka}" th:text="${poruka}"></div>
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <section class="kartica">
+        <h2>Prijavljeni korisnik</h2>
+        <table class="podaci">
+            <tr><th>Korisnik</th><td th:text="${tokens?.username}">-</td></tr>
+            <tr><th>Uloga</th><td th:text="${tokens?.role}">-</td></tr>
+            <tr><th>Access token</th><td><code th:text="${accessTokenPreview}">-</code></td></tr>
+            <tr><th>Refresh token</th><td><code th:text="${refreshTokenPreview}">-</code></td></tr>
+            <tr><th>Access vrijedi</th><td th:text="|${tokens?.accessMinutes} min|">-</td></tr>
+        </table>
+
+        <form th:action="@{/token/refresh}" method="post" class="inline">
+            <button type="submit">Osvjezi token</button>
+        </form>
+        <p class="pomoc">
+            Osvjezavanje trosi stari refresh token i izdaje novi par &mdash; rotacija iz zahtjeva 5.
+        </p>
+    </section>
+
+    <section class="kartica">
+        <h2>Sto mozete pokrenuti</h2>
+        <ul class="zahtjevi">
+            <li><a th:href="@{/uvoz}" sec:authorize="hasRole('FULL')">Uvoz XML/JSON</a>
+                <span sec:authorize="!hasRole('FULL')" class="onemoguceno">Uvoz XML/JSON</span>
+                &mdash; zahtjev 1, XSD i JSON Schema validacija
+                <span class="badge badge-full">FULL</span></li>
+            <li><a th:href="@{/soap}">SOAP pretraga</a>
+                &mdash; zahtjev 2, generirani XML pa XPath</li>
+            <li><a th:href="@{/jaxb}">JAXB validacija</a>
+                &mdash; zahtjev 3, unmarshalling uz XSD</li>
+            <li><a th:href="@{/vrijeme}">Vrijeme (gRPC)</a>
+                &mdash; zahtjev 4, DHMZ preko porta 9090</li>
+            <li><a th:href="@{/oznake}">Oznake</a> i
+                <a th:href="@{/graphql}">GraphQL</a>
+                &mdash; zahtjev 5, nas REST i GraphQL uz JWT</li>
+        </ul>
+    </section>
+
+</main>
+</body>
+</html>

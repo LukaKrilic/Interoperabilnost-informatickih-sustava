@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asana Tags - Prijava</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="prijava">
+
+<form th:action="@{/login}" method="post" class="kartica">
+    <h1>Asana Tags</h1>
+    <p class="podnaslov">Interoperabilnost informacijskog sustava</p>
+
+    <div class="greska" th:if="${param.error}">Neispravno korisnicko ime ili lozinka.</div>
+    <div class="poruka" th:if="${param.odjava}">Odjavljeni ste.</div>
+
+    <label for="username">Korisnicko ime</label>
+    <input type="text" id="username" name="username" autofocus required>
+
+    <label for="password">Lozinka</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Prijava</button>
+
+    <p class="pomoc">
+        <code>admin</code> / <code>admin123</code> &mdash; FULL<br>
+        <code>citatelj</code> / <code>citatelj123</code> &mdash; READONLY
+    </p>
+</form>
+
+</body>
+</html>

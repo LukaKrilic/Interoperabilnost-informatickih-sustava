@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="okvir(naslov, sadrzaj)">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|Asana Tags - ${naslov}|">Asana Tags</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<header>
+    <span class="brand">Asana Tags</span>
+
+    <nav>
+        <a th:href="@{/}">Nadzorna ploca</a>
+        <a th:href="@{/oznake}">Oznake</a>
+        <a th:href="@{/graphql}">GraphQL</a>
+        <a th:href="@{/uvoz}" sec:authorize="hasRole('FULL')">Uvoz</a>
+        <a th:href="@{/soap}">SOAP pretraga</a>
+        <a th:href="@{/jaxb}">JAXB validacija</a>
+        <a th:href="@{/vrijeme}">Vrijeme</a>
+    </nav>
+
+    <span class="korisnik" sec:authorize="isAuthenticated()">
+        <span sec:authentication="name">korisnik</span>
+        <span class="badge badge-full" sec:authorize="hasRole('FULL')">FULL</span>
+        <span class="badge badge-ro" sec:authorize="hasRole('READONLY')">READONLY</span>
+        <form th:action="@{/logout}" method="post" class="inline">
+            <button type="submit" class="link">Odjava</button>
+        </form>
+    </span>
+</header>
+
+<main>
+    <h1 th:text="${naslov}">Naslov</h1>
+    <div th:replace="${sadrzaj}">sadrzaj stranice</div>
+</main>
+
+</body>
+</html>

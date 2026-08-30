@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: client-app
+  thymeleaf:
+    cache: false
+
+backend:
+  url: http://localhost:8080
+  grpc-host: localhost
+  grpc-port: 9090

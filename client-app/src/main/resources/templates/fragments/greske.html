@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+  Jedan fragment za sve tri stranice, jer backend za zahtjeve 1, 3 i 5
+  vraca isti {location, message} oblik.
+-->
+<table class="popis" th:fragment="tablica(greske)" th:if="${not #lists.isEmpty(greske)}">
+    <thead>
+    <tr>
+        <th style="width: 22%">Mjesto</th>
+        <th>Poruka</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="g : ${greske}">
+        <td><code th:text="${g.location()}">mjesto</code></td>
+        <td th:text="${g.message()}">poruka</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir('Vrijeme (gRPC)', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <form th:action="@{/vrijeme}" method="post" class="kartica">
+        <p>
+            Zahtjev ide <strong>binarnim protobufom preko HTTP/2</strong> na zaseban proces
+            (<code>grpc-weather</code>, port 9090), koji dohvaća
+            <code>https://vrijeme.hr/hrvatska_n.xml</code> i vraća sve postaje čije ime
+            sadrži traženi pojam.
+        </p>
+
+        <label for="grad">Naziv grada ili dio naziva</label>
+        <input type="text" id="grad" name="grad" th:value="${grad}"
+               placeholder="npr. zagre, sib, split">
+        <p class="pomoc">
+            Pretraga ne razlikuje velika i mala slova <strong>ni dijakritike</strong>:
+            <code>sib</code> nalazi <code>Šibenik</code>, <code>ploce</code> nalazi
+            <code>Ploče</code>. Prazan pojam vraća sve postaje.
+        </p>
+
+        <button type="submit">Dohvati temperature</button>
+    </form>
+
+    <section class="kartica" th:if="${odgovor}">
+        <h2>Rezultat</h2>
+
+        <table class="podaci">
+            <tr><th>Izvor</th><td><code th:text="${odgovor.source}">-</code></td></tr>
+            <tr><th>Mjereno</th><td th:text="${odgovor.measuredAt}">-</td></tr>
+            <tr><th>Postaja u izvještaju</th><td th:text="${odgovor.totalCities}">0</td></tr>
+            <tr><th>Pogodaka</th><td th:text="${odgovor.matchCount}">0</td></tr>
+        </table>
+
+        <p class="pomoc" th:if="${odgovor.matchCount == 0}">
+            Nula pogodaka uz <span th:text="${odgovor.totalCities}">0</span> postaja u izvještaju
+            je dokaz da je filtriranje doista napravljeno.
+        </p>
+
+        <table class="popis" th:if="${odgovor.matchCount > 0}">
+            <thead>
+            <tr><th>Postaja</th><th>Temperatura</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="g : ${odgovor.cityList}">
+                <td th:text="${g.name}">grad</td>
+                <td th:if="${g.hasTemperatureC()}" th:text="|${g.temperatureC} °C|">-</td>
+                <td th:unless="${g.hasTemperatureC()}" class="pomoc">(nema očitanja)</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="pomoc">
+            Broj postaja se mijenja po terminu izvještaja &mdash; DHMZ ne objavljuje uvijek isti
+            skup, zato se čita iz odgovora umjesto da je zapisan u kodu.
+            Postaja bez očitanja vraća se <em>bez</em> polja, a ne kao 0 °C: to je
+            <code>optional double</code> iz <code>weather.proto</code>.
+        </p>
+    </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir('SOAP pretraga', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <form th:action="@{/soap}" method="post" class="kartica">
+        <p>
+            Backend prvo dohvati oznake s Asana REST API-ja, zapise ih u
+            <code>generated/tags.xml</code>, pa <strong>tu datoteku</strong> filtrira XPath izrazom.
+            Ovaj klijent je SOAP stub preveo <code>xjc</code>-om iz iste
+            <code>tags-service.xsd</code> datoteke iz koje backend generira WSDL.
+        </p>
+
+        <label for="pojam">Pojam za pretragu</label>
+        <input type="text" id="pojam" name="pojam" th:value="${pojam}"
+               placeholder="npr. urgent, SKOL, qqqzzz">
+        <p class="pomoc">
+            Prazan pojam vraća sve. Pretraga ne razlikuje velika i mala slova,
+            uključujući hrvatska: <code>ŠKOL</code> i <code>škol</code> nalaze
+            <code>školski</code>. Ali kvačicu morate upisati &mdash; <code>SKOL</code>
+            ne nalazi ništa, jer XPath <code>translate()</code> preslikava velika slova u
+            mala, a ne skida dijakritike. Neosjetljivost na dijakritike ima tek gRPC
+            pretraga gradova (zahtjev 4).
+        </p>
+
+        <button type="submit">Pretrazi</button>
+    </form>
+
+    <section class="kartica" th:if="${odgovor}">
+        <h2>Rezultat</h2>
+
+        <table class="podaci">
+            <tr><th>Generirana datoteka</th><td><code th:text="${odgovor.generatedFile}">-</code></td></tr>
+            <tr><th>Oznaka u datoteci</th><td th:text="${odgovor.totalInFile}">0</td></tr>
+            <tr><th>Pogodaka</th><td th:text="${odgovor.matchCount}">0</td></tr>
+        </table>
+
+        <p class="pomoc" th:if="${odgovor.matchCount == 0}">
+            Nula pogodaka uz <span th:text="${odgovor.totalInFile}">0</span> oznaka u datoteci
+            je dokaz da je datoteka doista generirana pa filtrirana.
+        </p>
+
+        <table class="popis" th:if="${odgovor.matchCount > 0}">
+            <thead>
+            <tr><th>gid</th><th>Naziv</th><th>Boja</th><th>Biljeske</th><th>Workspace</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${odgovor.tag}">
+                <td><code th:text="${t.gid}">-</code></td>
+                <td th:text="${t.name}">naziv</td>
+                <td th:text="${t.color}"></td>
+                <td th:text="${t.notes}"></td>
+                <td class="pomoc" th:text="${t.workspaceGid}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package hr.algebra.interop.graphqls;
+package hr.algebra.interop.graphql;
 
 public record TagInput(String gid,
                        String name,

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir(${naslov}, ~{::main/content()})}">
+<body>
+<main>
+
+    <form th:action="@{/oznake/spremi}" method="post" th:object="${oznaka}" class="kartica">
+        <input type="hidden" name="id" th:if="${id != null}" th:value="${id}">
+
+        <label for="name">Naziv *</label>
+        <input type="text" id="name" th:field="*{name}" required maxlength="200">
+
+        <label for="color">Boja</label>
+        <select id="color" th:field="*{color}">
+            <option th:each="b : ${boje}" th:value="${b}" th:text="${b.isEmpty()} ? '(bez boje)' : ${b}"></option>
+        </select>
+
+        <label for="notes">Biljeske</label>
+        <input type="text" id="notes" th:field="*{notes}">
+
+        <label for="gid">Asana gid (neobavezno)</label>
+        <input type="text" id="gid" th:field="*{gid}" maxlength="30">
+
+        <label for="workspaceGid">Workspace gid (neobavezno)</label>
+        <input type="text" id="workspaceGid" th:field="*{workspaceGid}" maxlength="30">
+
+        <button type="submit">Spremi</button>
+        <a th:href="@{/oznake}" class="gumb-veza">Odustani</a>
+    </form>
+
+</main>
+</body>
+</html>

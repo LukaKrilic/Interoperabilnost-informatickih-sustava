@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir('GraphQL konzola', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <form th:action="@{/graphql}" method="post" class="kartica">
+        <label for="upit">Upit</label>
+        <textarea id="upit" name="upit" rows="6" th:text="${upit}"></textarea>
+        <button type="submit">Izvrsi</button>
+    </form>
+
+    <section class="kartica" th:if="${odgovor}">
+        <h2>Odgovor</h2>
+        <pre th:text="${odgovor}"></pre>
+    </section>
+
+    <section class="kartica">
+        <h2>Primjeri</h2>
+        <ul class="primjeri">
+            <li><code>{ tags { id name color } }</code> &mdash; sva polja</li>
+            <li><code>{ tags { name } }</code> &mdash; isti endpoint, klijent trazi manje</li>
+            <li><code>{ tags(term: "urgent") { id name } }</code> &mdash; pretraga</li>
+            <li><code>{ svi: tags { name } urgentni: tags(term: "urgent") { name } }</code>
+                &mdash; dva upita u jednom pozivu</li>
+            <li><code>mutation { createTag(input: {name: "iz-graphqla", color: "green"}) { id name } }</code>
+                &mdash; kao READONLY vraca FORBIDDEN uz HTTP 200</li>
+            <li><code>{ tags { nepostojece } }</code> &mdash; shema odbija prije izvrsavanja</li>
+        </ul>
+    </section>
+
+</main>
+</body>
+</html>

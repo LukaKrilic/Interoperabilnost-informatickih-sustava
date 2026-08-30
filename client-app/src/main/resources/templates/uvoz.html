@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: okvir('Uvoz XML / JSON', ~{::main/content()})}">
+<body>
+<main>
+
+    <div class="greska" th:if="${greska}" th:text="${greska}"></div>
+
+    <form th:action="@{/uvoz}" method="post" enctype="multipart/form-data" class="kartica">
+        <label for="datoteka">Datoteka s oznakama (.xml ili .json)</label>
+        <input type="file" id="datoteka" name="datoteka" accept=".xml,.json" required>
+        <button type="submit">Posalji na validaciju</button>
+        <p class="pomoc">
+            Vrsta se odreduje po nastavku: <code>.xml</code> ide na XSD validaciju,
+            <code>.json</code> na JSON Schema validaciju. U bazu se ne sprema nista dok
+            validacija ne prode.
+        </p>
+    </form>
+
+    <section class="kartica" th:if="${rezultat}">
+        <h2 th:if="${rezultat.valid()}">Uvoz uspjesan</h2>
+        <h2 th:unless="${rezultat.valid()}">Validacija nije prosla</h2>
+
+        <p th:if="${rezultat.valid()}">
+            Datoteka <code th:text="${imeDatoteke}"></code> je ispravna,
+            spremljeno oznaka: <strong th:text="${rezultat.imported()}">0</strong>.
+        </p>
+        <p th:unless="${rezultat.valid()}">
+            Datoteka <code th:text="${imeDatoteke}"></code> je odbijena.
+            <strong>Nijedan zapis nije spremljen u bazu.</strong>
+        </p>
+
+        <div th:replace="~{fragments/greske :: tablica(${rezultat.errors()})}"></div>
+    </section>
+
+    <section class="kartica">
+        <h2>Datoteke za probu</h2>
+        <p class="pomoc">Nalaze se u <code>samples/</code> u korijenu repozitorija.</p>
+        <ul class="primjeri">
+            <li><code>tags-valid.xml</code> / <code>tags-valid.json</code> &mdash; prolaze, 2 oznake</li>
+            <li><code>tags-invalid-missing-name.xml</code> &mdash; nedostaje obavezni element</li>
+            <li><code>tags-invalid-bad-color.xml</code> &mdash; boja izvan enumeracije + prazno ime</li>
+            <li><code>tags-invalid-bad-color.json</code> &mdash; ista greska, druga shema</li>
+            <li><code>tags-invalid-extra-field.json</code> &mdash; polje kojeg nema u shemi</li>
+        </ul>
+    </section>
+
+</main>
+</body>
+</html>

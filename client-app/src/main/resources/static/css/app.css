@@ -1,0 +1,179 @@
+:root {
+    --tinta: #1c2530;
+    --papir: #f5f6f8;
+    --linija: #d8dce3;
+    --naglasak: #2f6f4f;
+    --crvena: #b03030;
+    --priguseno: #5b6672;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font: 15px/1.5 "Segoe UI", system-ui, sans-serif;
+    color: var(--tinta);
+    background: var(--papir);
+}
+
+/* ---------- zaglavlje ---------- */
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--tinta);
+    color: #fff;
+}
+
+.brand { font-weight: 700; letter-spacing: 0.02em; }
+
+nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+nav a { color: #c7d2dd; text-decoration: none; }
+nav a:hover { color: #fff; text-decoration: underline; }
+
+.korisnik { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; }
+
+.badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.badge-full { background: var(--naglasak); color: #fff; }
+.badge-ro { background: #6b7785; color: #fff; }
+
+/* ---------- okvir stranice ---------- */
+
+main { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; }
+h1 { margin-top: 0; font-size: 1.6rem; }
+h2 { font-size: 1.1rem; margin-top: 0; }
+
+.kartica {
+    background: #fff;
+    border: 1px solid var(--linija);
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.pomoc { color: var(--priguseno); font-size: 0.85rem; }
+
+code {
+    background: #eef0f4;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+pre {
+    background: #1c2530;
+    color: #dfe6ee;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ---------- obrasci i gumbi ---------- */
+
+button, .gumb-veza {
+    display: inline-block;
+    font: inherit;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--tinta);
+    border-radius: 4px;
+    background: var(--tinta);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+button:hover, .gumb-veza:hover { background: #2b3949; }
+
+.gumb-veza.desno { margin-left: auto; }
+
+button.opasno { background: var(--crvena); border-color: var(--crvena); }
+button.opasno:hover { background: #922727; }
+
+.link { background: none; border: none; color: #c7d2dd; padding: 0; text-decoration: underline; }
+.link:hover { color: #fff; background: none; }
+
+form.inline { display: inline; }
+
+label { display: block; font-weight: 600; font-size: 0.9rem; margin-top: 0.75rem; }
+
+input[type=text], input[type=password], select, textarea {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.25rem 0 0.75rem;
+    border: 1px solid var(--linija);
+    border-radius: 4px;
+    font: inherit;
+    background: #fff;
+}
+
+textarea { font-family: Consolas, "Courier New", monospace; font-size: 0.9rem; }
+
+.traka {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.traka input[type=text] { margin: 0; max-width: 320px; }
+
+/* ---------- poruke ---------- */
+
+.greska, .poruka {
+    padding: 0.6rem 0.9rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.greska { background: #fbe9e9; border: 1px solid #e8bcbc; color: var(--crvena); }
+.poruka { background: #e9f4ee; border: 1px solid #b9dcc8; color: var(--naglasak); }
+
+/* ---------- tablice ---------- */
+
+table.podaci { border-collapse: collapse; margin-bottom: 1rem; }
+table.podaci th, table.podaci td { text-align: left; padding: 0.3rem 1rem 0.3rem 0; }
+table.podaci th { color: var(--priguseno); font-weight: 600; }
+
+table.popis {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--linija);
+    border-radius: 6px;
+    overflow: hidden;
+}
+table.popis th, table.popis td {
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--linija);
+}
+table.popis th { background: #eef0f4; font-size: 0.85rem; color: var(--priguseno); }
+table.popis tr:last-child td { border-bottom: none; }
+table.popis td a { margin-right: 0.5rem; }
+
+.izvor { margin-top: 0; }
+
+/* ---------- popisi ---------- */
+
+.zahtjevi, .primjeri { padding-left: 1.2rem; }
+.zahtjevi li, .primjeri li { margin-bottom: 0.5rem; }
+.onemoguceno { color: #9aa3ad; text-decoration: line-through; }
+
+/* ---------- stranica prijave ---------- */
+
+body.prijava {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+body.prijava .kartica { width: 340px; }
+body.prijava h1 { margin-bottom: 0.2rem; }
+.podnaslov { margin-top: 0; color: var(--priguseno); font-size: 0.85rem; }
