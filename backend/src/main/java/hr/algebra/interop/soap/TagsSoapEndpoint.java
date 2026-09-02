@@ -26,10 +26,10 @@ public class TagsSoapEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "SearchTagsRequest")
     @ResponsePayload
     public SearchTagsResponse searchTags(@RequestPayload SearchTagsRequest request) {
-        Path file = generator.generate();                       // (a) + (b)
-        SearchResult result = search.search(file, request.getTerm());  // (c)
+        Path file = generator.generate();
+        SearchResult result = search.search(file, request.getTerm());
 
-        SearchTagsResponse response = new SearchTagsResponse();  // (d)
+        SearchTagsResponse response = new SearchTagsResponse();
         response.setGeneratedFile(file.toString());
         response.setTotalInFile(result.totalInFile());
         response.setMatchCount(result.matches().size());

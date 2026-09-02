@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 @RestControllerAdvice(assignableTypes = ImportController.class)
 public class ImportExceptionHandler {
 
-    /** Postgres u poruci navodi koji je kljuc pao: Key (gid)=(1200000000000001) already exists. */
     private static final Pattern KLJUC = Pattern.compile("Key \\((\\w+)\\)=\\(([^)]*)\\)");
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -26,10 +25,6 @@ public class ImportExceptionHandler {
                         "Tijelo zahtjeva nije ispravan JSON: " + e.getMostSpecificCause().getMessage()))));
     }
 
-    /**
-     * Uvoz datoteke koja sadrzi gid koji je vec u bazi. Zahtjev je ispravan i validacija je prosla,
-     * ali se sudara s postojecim stanjem - to je 409, ne 500.
-     */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> conflict(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(

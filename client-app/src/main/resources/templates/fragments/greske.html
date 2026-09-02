@@ -2,10 +2,6 @@
 <html lang="hr" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<!--
-  Jedan fragment za sve tri stranice, jer backend za zahtjeve 1, 3 i 5
-  vraca isti {location, message} oblik.
--->
 <table class="popis" th:fragment="tablica(greske)" th:if="${not #lists.isEmpty(greske)}">
     <thead>
     <tr>

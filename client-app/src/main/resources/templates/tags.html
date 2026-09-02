@@ -40,7 +40,6 @@
             <td th:text="${o.name()}">naziv</td>
             <td th:text="${o.color()}">boja</td>
             <td th:text="${o.notes()}"></td>
-            <td class="pomoc" th:text="${o.createdAt()}"></td>
             <td sec:authorize="hasRole('FULL')">
                 <a th:href="@{/oznake/{id}/uredi(id=${o.identifier()})}">Uredi</a>
                 <form th:action="@{/oznake/{id}/obrisi(id=${o.identifier()})}" method="post" class="inline"
@@ -54,12 +53,6 @@
         </tr>
         </tbody>
     </table>
-
-    <p class="pomoc" sec:authorize="!hasRole('FULL')">
-        Prijavljeni ste kao READONLY, pa nema gumba za stvaranje, uredivanje ni brisanje.
-        I da ih posaljete rucno, backend bi vratio 403 &mdash; skrivanje gumba je udobnost, 403 je sigurnost.
-    </p>
-
 </main>
 </body>
 </html>

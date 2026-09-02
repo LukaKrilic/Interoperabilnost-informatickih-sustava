@@ -21,7 +21,6 @@ import java.util.Map;
 @RequestMapping("/oznake")
 public class TagController {
 
-    /** Paleta koju ziva Asana API stvarno vraca - vidi CLAUDE.md. */
     static final List<String> BOJE = List.of("", "red", "orange", "yellow-orange", "yellow",
             "yellow-green", "green", "blue-green", "aqua", "blue", "indigo", "purple",
             "magenta", "hot-pink", "pink", "cool-gray", "none");

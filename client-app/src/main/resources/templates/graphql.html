@@ -20,14 +20,13 @@
     <section class="kartica">
         <h2>Primjeri</h2>
         <ul class="primjeri">
-            <li><code>{ tags { id name color } }</code> &mdash; sva polja</li>
-            <li><code>{ tags { name } }</code> &mdash; isti endpoint, klijent trazi manje</li>
-            <li><code>{ tags(term: "urgent") { id name } }</code> &mdash; pretraga</li>
-            <li><code>{ svi: tags { name } urgentni: tags(term: "urgent") { name } }</code>
-                &mdash; dva upita u jednom pozivu</li>
+            <li><code>{ tags { id name color } }</code> sva polja</li>
+            <li><code>{ tags { name } }</code> isti endpoint, klijent trazi manje</li>
+            <li><code>{ tags(term: "urgent") { id name } }</code> pretraga</li>
+            <li><code>{ svi: tags { name } urgentni: tags(term: "urgent") { name } }</code> dva upita u jednom pozivu</li>
             <li><code>mutation { createTag(input: {name: "iz-graphqla", color: "green"}) { id name } }</code>
-                &mdash; kao READONLY vraca FORBIDDEN uz HTTP 200</li>
-            <li><code>{ tags { nepostojece } }</code> &mdash; shema odbija prije izvrsavanja</li>
+                kao READONLY vraca FORBIDDEN uz HTTP 200</li>
+            <li><code>{ tags { nepostojece } }</code> shema odbija prije izvrsavanja</li>
         </ul>
     </section>
 

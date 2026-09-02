@@ -53,7 +53,6 @@ public class XsdValidationService {
             validator.validate(new SAXSource(secureReader(),
                     new InputSource(new ByteArrayInputStream(xml))));
         } catch (SAXParseException e) {
-            // already recorded by fatalError
         } catch (Exception e) {
             errors.add(new ValidationError("document", e.getMessage()));
         }

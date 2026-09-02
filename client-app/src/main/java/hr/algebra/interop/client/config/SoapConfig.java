@@ -8,11 +8,6 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 @Configuration
 public class SoapConfig {
 
-    /**
-     * Paket generiran xjc-om iz src/main/resources/soap/tags-service.xsd.
-     * Jaxb2Marshaller je InitializingBean, pa Spring sam pozove afterPropertiesSet()
-     * i izgradi JAXBContext prije nego ga itko dobije ubrizganog.
-     */
     @Bean
     public Jaxb2Marshaller tagsSoapMarshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();

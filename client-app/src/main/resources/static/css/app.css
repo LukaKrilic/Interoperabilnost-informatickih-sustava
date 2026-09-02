@@ -16,8 +16,6 @@ body {
     background: var(--papir);
 }
 
-/* ---------- zaglavlje ---------- */
-
 header {
     display: flex;
     align-items: center;
@@ -43,8 +41,6 @@ nav a:hover { color: #fff; text-decoration: underline; }
 }
 .badge-full { background: var(--naglasak); color: #fff; }
 .badge-ro { background: #6b7785; color: #fff; }
-
-/* ---------- okvir stranice ---------- */
 
 main { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; }
 h1 { margin-top: 0; font-size: 1.6rem; }
@@ -76,8 +72,6 @@ pre {
     font-size: 0.85rem;
     margin: 0;
 }
-
-/* ---------- obrasci i gumbi ---------- */
 
 button, .gumb-veza {
     display: inline-block;
@@ -125,8 +119,6 @@ textarea { font-family: Consolas, "Courier New", monospace; font-size: 0.9rem; }
 }
 .traka input[type=text] { margin: 0; max-width: 320px; }
 
-/* ---------- poruke ---------- */
-
 .greska, .poruka {
     padding: 0.6rem 0.9rem;
     border-radius: 4px;
@@ -134,8 +126,6 @@ textarea { font-family: Consolas, "Courier New", monospace; font-size: 0.9rem; }
 }
 .greska { background: #fbe9e9; border: 1px solid #e8bcbc; color: var(--crvena); }
 .poruka { background: #e9f4ee; border: 1px solid #b9dcc8; color: var(--naglasak); }
-
-/* ---------- tablice ---------- */
 
 table.podaci { border-collapse: collapse; margin-bottom: 1rem; }
 table.podaci th, table.podaci td { text-align: left; padding: 0.3rem 1rem 0.3rem 0; }
@@ -160,13 +150,9 @@ table.popis td a { margin-right: 0.5rem; }
 
 .izvor { margin-top: 0; }
 
-/* ---------- popisi ---------- */
-
 .zahtjevi, .primjeri { padding-left: 1.2rem; }
 .zahtjevi li, .primjeri li { margin-bottom: 0.5rem; }
 .onemoguceno { color: #9aa3ad; text-decoration: line-through; }
-
-/* ---------- stranica prijave ---------- */
 
 body.prijava {
     display: flex;

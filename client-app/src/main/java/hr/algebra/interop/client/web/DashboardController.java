@@ -32,8 +32,8 @@ public class DashboardController {
     public String dashboard(Model model) {
         TokenPair tokens = sessionTokens.tokens();
         model.addAttribute("tokens", tokens);
-        model.addAttribute("accessTokenPreview", preview(tokens == null ? null : tokens.accessToken()));
-        model.addAttribute("refreshTokenPreview", preview(tokens == null ? null : tokens.refreshToken()));
+        model.addAttribute("accessTokenPreview", tokens.accessToken());
+        model.addAttribute("refreshTokenPreview", tokens.refreshToken());
         return "dashboard";
     }
 
@@ -49,8 +49,7 @@ public class DashboardController {
 
             sessionTokens.store(novi);
             redirect.addFlashAttribute("poruka",
-                    "Token osvjezen. Novi refresh token je razlicit od starog: "
-                            + !stari.equals(novi.refreshToken()));
+                    "Token osvjezen.");
         } catch (Exception e) {
             redirect.addFlashAttribute("greska", "Osvjezavanje nije uspjelo: " + e.getMessage());
         }

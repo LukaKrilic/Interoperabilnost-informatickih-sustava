@@ -1,9 +1,5 @@
 package hr.algebra.interop.client.backend;
 
-/**
- * Obicna klasa s getterima i setterima, ne record - Thymeleafov `th:field`
- * i Springov data binder trebaju JavaBean pristupnike.
- */
 public class TagForm {
 
     private String gid;

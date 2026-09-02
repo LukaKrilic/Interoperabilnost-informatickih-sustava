@@ -19,7 +19,6 @@ public class WeatherClient {
     private final WeatherServiceGrpc.WeatherServiceBlockingStub stub;
 
     public WeatherClient(BackendProperties backend) {
-        // Kanal je skup i thread-safe pa se gradi jednom; stub je jeftin omotac oko njega.
         this.channel = ManagedChannelBuilder
                 .forAddress(backend.grpcHost(), backend.grpcPort())
                 .usePlaintext()

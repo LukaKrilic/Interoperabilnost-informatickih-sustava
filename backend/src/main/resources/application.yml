@@ -21,6 +21,7 @@ server:
 tags:
   api:
     mode: custom
+#mode public: use the public tags from the interop repository
 
 jwt:
   access-minutes: 15
