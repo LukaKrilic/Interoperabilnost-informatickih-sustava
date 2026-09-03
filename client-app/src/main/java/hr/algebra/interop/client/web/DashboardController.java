@@ -55,13 +55,4 @@ public class DashboardController {
         }
         return "redirect:/";
     }
-
-    private static String preview(String token) {
-        if (token == null) {
-            return "-";
-        }
-        return token.length() <= 24
-                ? token
-                : token.substring(0, 18) + "..." + token.substring(token.length() - 6);
-    }
 }
